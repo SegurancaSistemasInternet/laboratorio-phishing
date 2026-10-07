@@ -1,0 +1,5 @@
+# Não versionar o clone cru gerado pelo HTTrack durante o laboratório.
+# Publica-se a versão marcada (exemplo-espelho/), não o clone sem travas.
+espelho-portal/
+hts-cache/
+*.whtt

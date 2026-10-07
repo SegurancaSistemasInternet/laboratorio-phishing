@@ -1,0 +1,175 @@
+/* ============================================================
+   Portal Acadêmico — Fictícia S.A.
+   Folha de estilo do site-alvo (uso didático).
+   Instituição inventada; nenhuma marca real.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* paleta institucional fictícia: azul-petróleo + dourado */
+  --tinta:        #0f2d3f;   /* azul-petróleo escuro */
+  --tinta-2:      #16425b;
+  --acento:       #1b7f8c;   /* turquesa */
+  --dourado:      #c9a24a;   /* detalhe nobre */
+  --fundo:        #f4f7f9;
+  --superficie:   #ffffff;
+  --borda:        #dce4ea;
+  --texto:        #1e2d38;
+  --texto-suave:  #5f7383;
+  --sombra:       0 1px 2px rgba(15,45,63,.06), 0 8px 24px rgba(15,45,63,.08);
+  --raio:         14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+/* ---------- Barra superior fina ---------- */
+.barra-fina {
+  background: var(--tinta);
+  color: #cfe0e7;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.barra-fina .container { display: flex; justify-content: space-between; align-items: center; height: 34px; }
+.barra-fina a { color: #cfe0e7; text-decoration: none; opacity: .85; }
+.barra-fina a:hover { opacity: 1; }
+.barra-fina .sep { opacity: .4; margin: 0 8px; }
+
+/* ---------- Cabeçalho ---------- */
+.topo {
+  background: linear-gradient(120deg, var(--tinta) 0%, var(--tinta-2) 100%);
+  color: #fff;
+  position: relative;
+}
+.topo::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--dourado), var(--acento));
+}
+.topo-flex { display: flex; align-items: center; justify-content: space-between; min-height: 76px; }
+
+.marca { display: flex; align-items: center; gap: 14px; }
+.brasao {
+  width: 46px; height: 46px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: radial-gradient(circle at 30% 25%, #2a6b78, #0f2d3f);
+  border: 1px solid rgba(201,162,74,.5);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.04);
+}
+.brasao svg { width: 26px; height: 26px; }
+.marca-texto { line-height: 1.15; }
+.marca-texto .nome { font-weight: 800; font-size: 18px; letter-spacing: .2px; }
+.marca-texto .sub { display: block; font-size: 11.5px; font-weight: 500; color: var(--dourado); text-transform: uppercase; letter-spacing: 1.5px; }
+
+.menu { display: flex; gap: 6px; }
+.menu a {
+  color: #eaf2f5; text-decoration: none; font-size: 14px; font-weight: 500;
+  padding: 8px 14px; border-radius: 8px; transition: background .15s;
+}
+.menu a:hover { background: rgba(255,255,255,.10); }
+.menu a.ativo { background: rgba(255,255,255,.14); }
+
+/* ---------- Faixa hero ---------- */
+.hero {
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+}
+.hero .container { padding-top: 26px; padding-bottom: 26px; }
+.hero h2 { font-size: 15px; font-weight: 600; color: var(--acento); letter-spacing: .3px; }
+.hero p { color: var(--texto-suave); font-size: 14px; margin-top: 2px; }
+
+/* ---------- Conteúdo ---------- */
+.conteudo {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px;
+  margin: 34px auto 48px; align-items: start;
+}
+
+.cartao {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* cartão de login */
+.cartao-login { padding: 34px; position: relative; overflow: hidden; }
+.cartao-login::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+  background: linear-gradient(90deg, var(--acento), var(--dourado));
+}
+.cartao-login h1 { font-size: 23px; color: var(--tinta); font-weight: 800; }
+.subtitulo { color: var(--texto-suave); font-size: 14px; margin: 4px 0 22px; }
+
+form label { display: block; font-size: 13px; font-weight: 600; color: var(--tinta-2); margin: 16px 0 6px; }
+form input[type="text"], form input[type="password"] {
+  width: 100%; padding: 12px 14px; font-size: 14.5px; font-family: inherit;
+  border: 1.5px solid var(--borda); border-radius: 10px; background: #fbfdfe;
+  transition: border-color .15s, box-shadow .15s;
+}
+form input::placeholder { color: #9fb0bd; }
+form input:focus {
+  outline: none; border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(27,127,140,.15); background: #fff;
+}
+
+.linha-opcoes { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 6px; font-size: 13px; }
+.checkbox { font-weight: 400; color: var(--texto-suave); display: flex; align-items: center; gap: 7px; cursor: pointer; }
+.checkbox input { accent-color: var(--acento); }
+.link-pequeno { color: var(--acento); text-decoration: none; font-weight: 500; }
+.link-pequeno:hover { text-decoration: underline; }
+
+.botao-primario {
+  width: 100%; margin-top: 18px; padding: 13px; font-size: 15px; font-weight: 700; font-family: inherit;
+  color: #fff; background: var(--tinta); border: none; border-radius: 10px; cursor: pointer;
+  letter-spacing: .3px; transition: background .15s, transform .05s;
+}
+.botao-primario:hover { background: var(--acento); }
+.botao-primario:active { transform: translateY(1px); }
+
+.rodape-cartao {
+  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--borda);
+  font-size: 12.5px; color: var(--texto-suave);
+}
+
+/* coluna lateral */
+.avisos { padding: 26px; }
+.avisos h3 {
+  font-size: 13px; color: var(--acento); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.avisos ul { list-style: none; }
+.avisos li { font-size: 13.5px; padding: 12px 0; border-bottom: 1px solid #eef3f6; display: flex; gap: 10px; }
+.avisos li:last-child { border-bottom: none; padding-bottom: 0; }
+.avisos li .ponto { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--dourado); margin-top: 7px; }
+
+/* página sobre */
+.pagina-texto { padding: 36px; }
+.pagina-texto h1 { font-size: 24px; color: var(--tinta); font-weight: 800; margin-bottom: 6px; }
+.pagina-texto p { font-size: 14.5px; color: var(--texto); margin-top: 14px; }
+.pagina-texto p strong { color: var(--tinta-2); }
+
+/* ---------- Rodapé ---------- */
+.rodape { background: var(--tinta); color: #a9c2cd; padding: 26px 0; font-size: 13px; }
+.rodape .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.rodape .marca-mini { font-weight: 700; color: #fff; }
+.rodape a { color: #a9c2cd; text-decoration: none; }
+.rodape a:hover { color: #fff; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 760px) {
+  .conteudo { grid-template-columns: 1fr; }
+  .barra-fina .container { font-size: 11px; }
+  .menu { gap: 0; }
+  .menu a { padding: 8px 10px; font-size: 13px; }
+  .marca-texto .nome { font-size: 16px; }
+}
