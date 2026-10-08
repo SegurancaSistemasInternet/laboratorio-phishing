@@ -30,7 +30,7 @@ uma instituição real e publicá-lo é crime no Brasil, mesmo sem "colher" dado
 | Bloco | Tempo | Conteúdo |
 |---|---|---|
 | Abertura | 15 min | O que é phishing; as três peças; regras do lab |
-| Passo 1–2 | 20 min | Instalar HTTrack; subir o site-alvo local |
+| Passo 1–2 | 20 min | Preparar Windows; clonar o repositório; abrir o alvo com Go Live |
 | Passo 3 | 25 min | Espelhar com HTTrack; observar a aranha seguindo links |
 | Passo 4–5 | 30 min | Travas de segurança; publicar no GitHub Pages |
 | Passo 6 | 25 min | **Análise defensiva** (o clímax pedagógico) |
@@ -42,18 +42,22 @@ uma instituição real e publicá-lo é crime no Brasil, mesmo sem "colher" dado
 ## Pré-aula: checklist do professor
 
 - [ ] Teste o fluxo inteiro você mesmo uma vez, do zero.
-- [ ] Confirme que o `python -m http.server` funciona nas máquinas do laboratório.
-- [ ] Verifique se os alunos conseguem instalar o HTTrack (ou pré-instale).
+- [ ] Confirme que as máquinas usam **Windows** e têm **Git for Windows** e **VS Code**.
+- [ ] Instale a extensão **Live Server**, de **Ritwick Dey**, e teste o botão **Go Live**.
+- [ ] Verifique se os alunos conseguem instalar o **WinHTTrack** (ou pré-instale).
+- [ ] Confirme que todos conseguem clonar o repositório localmente com `git clone`.
 - [ ] Tenha algumas contas GitHub de reserva, caso alguém não consiga criar na hora.
-- [ ] Se a rede do laboratório bloquear `localhost` entre máquinas, não tem
-      problema: cada aluno espelha o próprio `localhost:8000` na própria máquina.
+- [ ] Cada aluno espelha o próprio `http://127.0.0.1:5500/site-alvo/` na própria
+      máquina, sem precisar acessar o computador de colegas. Confira a porta
+      efetiva do Go Live e as regras do WinHTTrack que limitam a cópia a `site-alvo/`.
 
 ## Erros comuns e como contornar
 
 | Sintoma | Causa provável | Solução |
 |---|---|---|
-| HTTrack baixa "nada" ou erro de conexão | servidor local não está rodando | confirme o `python -m http.server 8000` ativo e o terminal aberto na pasta `site-alvo/` |
-| A cópia abre sem estilo (sem cores) | caminho do CSS quebrou | abra pelo `index.html` dentro da pasta gerada, não mova arquivos soltos |
+| Go Live não aparece | extensão ausente ou pasta não aberta | instale Live Server (`ritwickdey.LiveServer`) e abra a pasta clonada no VS Code |
+| HTTrack baixa "nada" ou erro de conexão | Live Server parado ou URL incorreta | ative Go Live e confira no navegador a porta efetiva e o caminho `site-alvo/` |
+| A cópia abre sem estilo (sem cores) | caminho do CSS quebrou | abra a pasta gerada no VS Code e visualize o `index.html` com Go Live; não mova arquivos soltos |
 | GitHub Pages dá 404 | arquivos não estão na raiz, ou Pages ainda processando | `index.html` tem que estar no topo do repo; espere ~1 min |
 | Página publicada sem a faixa de treino | publicaram o clone cru, não o `exemplo-espelho/` | reforce: publica-se a versão **marcada** |
 
@@ -79,5 +83,6 @@ Critério central: o aluno demonstrou que sabe **reconhecer e evitar** phishing?
 - **Turma mais avançada:** adicionar inspeção de certificado (quem emitiu, validade),
   comparação de DNS/WHOIS do domínio, e análise de cabeçalhos de e-mail de phishing
   reais (anonimizados).
-- **Sem GitHub:** a análise defensiva funciona igual abrindo a cópia local; o Pages
-  é só para demonstrar o HTTPS/cadeado "enganoso".
+- **Sem publicação no GitHub:** após clonar o repositório, a análise defensiva
+  também funciona visualizando a versão marcada com **Go Live** no VS Code.
+  O Pages serve para demonstrar o HTTPS/cadeado "enganoso".

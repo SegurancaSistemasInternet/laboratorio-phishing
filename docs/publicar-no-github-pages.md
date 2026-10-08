@@ -42,24 +42,34 @@ treino), **não** o clone cru que o HTTrack gerou.
 
 ---
 
-## Opção B — Pelo terminal (git)
+## Opção B — Pelo PowerShell no Windows
 
-```bash
-# 1. Clone o repositório vazio que você criou no GitHub
+Abra o **PowerShell na raiz da cópia local `laboratorio-phishing`**, clonada no
+Passo 2. Substitua `SEU-USUARIO` pelo seu usuário do GitHub. O repositório de
+publicação deve estar criado no GitHub com a branch `main` (marque **Add a README**
+ao criá-lo, como na Opção A).
+
+```powershell
+# 1. Clone o repositório de publicação
 git clone https://github.com/SEU-USUARIO/treino-phishing-ficticia.git
-cd treino-phishing-ficticia
 
-# 2. Copie para cá o conteúdo da versão marcada
-cp -r /caminho/para/phishing-lab/exemplo-espelho/* .
+# 2. Copie o conteúdo da versão marcada para a raiz dele
+Copy-Item -Path .\exemplo-espelho\* -Destination .\treino-phishing-ficticia\ -Recurse
+Set-Location .\treino-phishing-ficticia
 
 # 3. Confirme que index.html está na raiz
-ls          # deve listar: index.html  sobre.html  css
+Get-ChildItem   # deve listar: index.html, sobre.html, css (além do README)
 
 # 4. Envie
 git add .
 git commit -m "Publica pagina de treino de phishing (didatico)"
 git push origin main
 ```
+
+Execute os comandos um de cada vez e só avance se o anterior concluir sem erro.
+No primeiro commit, se o Git solicitar sua identidade, configure seu nome e
+e-mail conforme a orientação do professor. No `git push`, conclua a autenticação
+do GitHub quando solicitada.
 
 Depois, ative o Pages em *Settings → Pages* como na Opção A, passo 3.
 
