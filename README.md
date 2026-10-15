@@ -101,7 +101,8 @@ feita pelo VS Code com **Go Live**, sem instalar Python.
    - No Explorador de Arquivos, clique com o botão direito no ZIP e escolha
      **Extrair Tudo…**. Extraia para uma pasta em que seu usuário possa gravar,
      como `Documentos\Ferramentas\WinHTTrack`. Não use `C:\Program Files`.
-   - Abra a pasta extraída e execute **`WinHTTrack.exe`** com um duplo clique.
+   - Abra a pasta extraída e, dentro da subpasta **`httrack`** do pacote 3.50.5,
+     execute **`WinHTTrack.exe`** com um duplo clique.
      Não use **Executar como administrador**. Se desejar, crie um atalho para
      esse arquivo na Área de Trabalho. Mantenha os demais arquivos do pacote
      junto dele; não execute de dentro do ZIP.
@@ -170,19 +171,41 @@ Neste laboratório há **dois repositórios com papéis diferentes**:
 
 Agora o passo central: criar a **versão estática** (o espelho).
 
-### No WinHTTrack (com janelas)
+### No WinHTTrack 3.50.5 (com janelas)
 
-1. Na pasta extraída no Passo 1, abra **`WinHTTrack.exe`** (ou seu atalho)
-   e clique em **Next**.
-2. **Project name:** `espelho-portal`. Escolha uma pasta de destino **fora da
-   pasta do repositório clonado**, para separar o alvo da cópia, e em que seu
-   usuário possa gravar (por exemplo, `Documentos\Espelhos`). **Next**.
-3. **Action:** deixe em *Download web site(s)*.
-4. Em **Web Addresses (URL):** digite a **URL pública base** confirmada no Passo 2:
+Os nomes abaixo seguem a **interface em inglês** do pacote oficial 3.50.5,
+conferidos nos recursos e nas capturas que acompanham essa versão. A aplicação
+pode iniciar no idioma do Windows. Para acompanhar os mesmos nomes, use
+**Preferences → Language preference...** (em português brasileiro,
+**Opções → Preferências do idioma...**) e selecione **English**.
+Se for solicitado, reabra o programa. Os botões de navegação também podem
+seguir o idioma do Windows.
+
+1. Abra **`WinHTTrack.exe`** (ou seu atalho). Na tela **Welcome to WinHTTrack
+   Website Copier!**, clique em **Next >**.
+2. Na tela do projeto, preencha:
+   - **New project name:** `espelho-portal`. Use um nome novo; selecionar um
+     projeto existente pode carregar as configurações de uma cópia anterior.
+   - **Project category:** pode ficar em branco.
+   - **Base path:** escolha uma pasta **fora do repositório clonado** e em que
+     seu usuário possa gravar, por exemplo,
+     `C:\Users\SEU-USUARIO\Documents\Espelhos` (substitua pelo caminho real da
+     sua pasta). Use o botão **`..`** ao lado do campo para procurar a pasta.
+     O WinHTTrack acrescenta o nome do projeto: nesse exemplo, a cópia ficará
+     em `C:\Users\SEU-USUARIO\Documents\Espelhos\espelho-portal`.
+
+   Clique em **Next >**.
+3. Na tela de endereços, em **Action:**, selecione **Download web site(s)**.
+   Não escolha as opções de atualização, retomada ou download de arquivos isolados.
+4. Na caixa grande **Web Addresses: (URL)**, cole a **URL pública base**
+   confirmada no Passo 2:
    `https://segurancasistemasinternet.github.io/site-alvo/`.
-   Não use a URL do repositório no GitHub nem um endereço `localhost`.
-5. Clique em **Set options** → aba **Scan Rules**. Substitua as regras existentes
-   por estas duas, **nesta ordem**:
+   Não é necessário usar **Add URL...**; a URL pode ser digitada diretamente.
+   Deixe **URL list (.txt):** em branco. Não use a URL do repositório no GitHub
+   nem um endereço `localhost`.
+5. Clique em **Set options...** e abra a aba **Scan Rules**. Na caixa de texto
+   de regras, apague o conteúdo existente e cole estas duas linhas,
+   **nesta ordem**:
 
    ```text
    -*
@@ -193,9 +216,29 @@ Agora o passo central: criar a **versão estática** (o espelho).
    arquivos. Assim, a cópia não segue links para outros projetos do mesmo host
    nem para sites externos. Se o professor mudar a URL base, ajuste também a
    segunda regra, preservando a `/` antes de `*`. Não amplie a permissão para
-   todo o `github.io`. Na aba **Limits**, os padrões bastam para nosso site
-   pequeno. **OK**.
-6. **Next** → **Finish**. O HTTrack vai rodar e baixar os arquivos.
+   todo o `github.io`.
+
+   Não é necessário usar **Exclude link(s)..** nem **Include link(s)..**:
+   esses botões abrem assistentes para montar regras. Deixe desmarcadas as
+   caixas de grupos de arquivos acima do campo, para não acrescentar permissões
+   globais. Na aba **Limits**, mantenha os valores padrão para nosso site
+   pequeno. Clique em **OK** para voltar à tela de endereços.
+6. Clique em **Next >** para chegar à tela de início do espelhamento:
+   - Mantenha selecionada a primeira opção, que começa com
+     **Please adjust connection parameters if necessary...**.
+   - Em **Remote connect → Connect to this provider**, mantenha
+     **Do not use remote access connection** para a conexão de rede já ativa.
+   - Deixe **Disconnect when finished** e **Shutdown PC when finished**
+     desmarcados e não programe um horário em **On hold**.
+   - **Não selecione Save settings only, do not launch download now.** Essa
+     opção só salva a configuração e não baixa o site.
+
+   Clique em **Finish** para iniciar o download. Esse botão inicia a operação;
+   não significa que a cópia já terminou.
+7. Aguarde a tela **Site mirroring finished!**. Confira os arquivos baixados e
+   use **View log** para examinar avisos ou erros. Se não houver páginas HTML
+   ou o download falhar, confira a URL e as regras antes de prosseguir;
+   não remova a restrição de escopo para tentar resolver.
 
 ### O que observar enquanto ele roda
 
@@ -204,9 +247,15 @@ para `sobre.html` e o segue, depois pega `css/estilo.css`. **É a aranha seguind
 os links** — exatamente como um atacante captura as páginas de um site.
 
 Ao terminar, use **Arquivo → Abrir Pasta** no VS Code para abrir a pasta
-`espelho-portal` gerada pelo WinHTTrack. Abra o `index.html` dessa pasta e
-clique em **Go Live**. Se aparecer o índice de projetos do HTTrack, clique no
-projeto para chegar à cópia do portal.
+`espelho-portal`, dentro do **Base path** escolhido. Abra o `index.html` dessa
+pasta e clique em **Go Live**. Esse arquivo pode ser o índice gerado pelo
+HTTrack; nesse caso, clique no link do portal para chegar à página espelhada.
+Não abra apenas a pasta-base `Espelhos`, que pode conter outros projetos.
+
+> 📖 **Referência da interface:** [guia oficial do WinHTTrack](https://www.httrack.com/html/guide.html).
+> Os rótulos e a sequência acima foram conferidos também no
+> [código oficial da versão 3.50-5](https://github.com/xroche/httrack-windows/tree/3.50-5/WinHTTrack)
+> e nos arquivos de idioma do ZIP 3.50.5.
 
 > 🧪 **Experimento rápido:** confira que a cópia agora abre em
 > `http://127.0.0.1:5500/` (ou na porta escolhida pelo Go Live), e não no endereço
@@ -339,7 +388,6 @@ laboratorio-phishing/
 │   ├── sobre.html
 │   └── css/estilo.css
 └── docs/
-    ├── guia-do-professor.md
     ├── checklist-analise-defensiva.md
     └── publicar-no-github-pages.md
 ```
