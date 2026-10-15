@@ -362,9 +362,30 @@ Abra a sua página publicada e responda, usando o
 
 ---
 
+## Entrega
+
+Antes de despublicar a página, entregue uma **captura de tela do site "clonado"
+publicado no GitHub Pages**, na atividade do **Microsoft Teams** criada pelo
+professor:
+
+1. Abra a URL pública da **sua cópia de treino** no navegador, por exemplo,
+   `https://SEU-USUARIO.github.io/treino-phishing-ficticia/`.
+   Não use o site-alvo do professor nem a visualização local do Go Live.
+2. Faça uma captura de tela mostrando **a página, a faixa
+   `AMBIENTE DE TREINO — PHISHING SIMULADO` e a barra de endereços com a URL
+   completa do GitHub Pages**. No Windows, você pode usar `Win+Shift+S`.
+   Não inclua senhas reais ou outros dados pessoais.
+3. Salve a imagem em **PNG ou JPG**, abra a atividade correspondente no
+   **Teams** e anexe o arquivo.
+4. Clique em **Entregar** e confirme que a entrega foi registrada. Apenas
+   anexar a imagem, sem concluir a entrega, não finaliza o envio.
+
+---
+
 ## 🧹 Encerramento
 
-Terminada a atividade, **despublique** a página: em **Settings → Pages**, desative o
+Depois de registrar a captura e concluir a entrega no Teams, **despublique**
+a página: em **Settings → Pages**, desative o
 Pages, ou exclua **seu repositório de treino**. Não altere o repositório nem a
 publicação do alvo do professor. Não há motivo para manter uma página de
 phishing (mesmo simulado) no ar depois da aula.
