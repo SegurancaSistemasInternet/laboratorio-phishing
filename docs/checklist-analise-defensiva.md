@@ -13,6 +13,10 @@ que uma tela de login chegar por um link.
       `facu1dade.com` com "1" no lugar de "l")
 - [ ] O endereço tem subdomínios estranhos antes do nome real?
       (`facul.edu.br.algumacoisa.com` — o domínio real é `algumacoisa.com`!)
+- [ ] No laboratório, compare com a **URL pública do alvo** confirmada pelo
+      professor no [Passo 2](../README.md#passo-2--obter-os-materiais-e-acessar-o-site-alvo-público).
+      Confira o host completo e o caminho: compartilhar o sufixo `github.io`
+      não significa compartilhar o responsável.
 
 ### 2. O cadeado / HTTPS
 
@@ -31,7 +35,9 @@ que uma tela de login chegar por um link.
 
 - [ ] Há imagens quebradas, links que não funcionam, textos estranhos?
       (cópias estáticas costumam deixar rastros)
-- [ ] Alguma função "não funciona de verdade"? Uma cópia não valida senha de fato.
+- [ ] Alguma função "não funciona de verdade"? Isso pode ser uma pista, mas não
+      uma prova: neste laboratório, o alvo original também é estático e não
+      autentica usuários. Não teste com credenciais reais.
 - [ ] O português/inglês está impecável, ou há erros sutis?
 
 ---

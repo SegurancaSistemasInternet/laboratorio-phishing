@@ -12,6 +12,9 @@ sites estáticos — como o nosso espelho.
 
 Você vai publicar o conteúdo da pasta **`exemplo-espelho/`** (a versão marcada como
 treino), **não** o clone cru que o HTTrack gerou.
+Crie a publicação na **sua conta**, em um novo repositório. O repositório separado
+[SegurancaSistemasInternet/site-alvo](https://github.com/SegurancaSistemasInternet/site-alvo)
+é mantido pelo professor e não deve ser alterado pelos alunos.
 
 ---
 
@@ -84,12 +87,15 @@ seguro".
 Isso é a prova prática de que **o cadeado não diz que o site é confiável**. Ele só
 cifra a conexão. Um golpista obtém HTTPS em minutos e de graça. A pergunta que
 protege a vítima nunca é *"tem cadeado?"*, e sim *"a URL é mesmo a oficial?"*.
+Compare com a URL pública do alvo anotada no Passo 2: ambas usam HTTPS, mas o
+host e/ou o caminho são diferentes.
 
 ---
 
 ## 🧹 Despublicar (faça ao fim da atividade)
 
-Não deixe a página no ar depois da aula:
+Não deixe **sua cópia de treino** no ar depois da aula. Não despublique o alvo
+do professor:
 
 - **Settings → Pages → Source → Disable**, ou
 - **Settings → (final da página) → Delete this repository**.

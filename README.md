@@ -14,8 +14,10 @@ isso seja feito de forma ética e legal, o laboratório foi desenhado com três
 travas de segurança. **Elas não são opcionais.**
 
 1. **O alvo é fictício.** Você vai espelhar o site `Portal Acadêmico — Fictícia S.A.`,
-   que está incluído neste repositório (pasta [`site-alvo/`](site-alvo/)). É uma
-   instituição inventada. **Você nunca deve espelhar o site real de um banco, de
+   publicado pelo professor no **GitHub Pages**, a partir do repositório separado
+   [SegurancaSistemasInternet/site-alvo](https://github.com/SegurancaSistemasInternet/site-alvo).
+   É uma instituição inventada, embora seu site tenha uma URL pública.
+   **Você nunca deve espelhar o site real de um banco, de
    uma empresa, da faculdade ou de qualquer instituição de verdade.** Clonar a
    identidade de uma organização real e publicá-la é crime (estelionato,
    falsidade ideológica), mesmo "só para testar".
@@ -63,16 +65,19 @@ sem o servidor original. Usaremos o **HTTrack**, feito exatamente para isso.
 ## 🧰 Pré-requisitos
 
 - [ ] Um computador com **Windows**. Este roteiro dá suporte apenas a esse ambiente.
-- [ ] **Git for Windows**, **Visual Studio Code** e **WinHTTrack** instalados
-      (instruções no Passo 1).
+- [ ] **Git for Windows** e **Visual Studio Code** instalados, e **WinHTTrack**
+      disponível na versão **ZIP sem instalador** (instruções no Passo 1).
 - [ ] A extensão **Live Server**, de **Ritwick Dey**, instalada no VS Code.
       Ela adiciona o botão **Go Live**.
 - [ ] Uma conta no **GitHub** (gratuita — crie em [github.com](https://github.com)).
 - [ ] Este repositório **clonado localmente com Git** (instruções no Passo 2).
+- [ ] Acesso à internet e ao **site-alvo fictício público**, previamente publicado
+      e autorizado pelo professor (endereço no Passo 2).
 
 Nenhuma experiência prévia com terminal é necessária: usaremos o **PowerShell**
-apenas para clonar o repositório. O WinHTTrack tem interface gráfica, e a
-visualização local será feita pelo VS Code com **Go Live**, sem instalar Python.
+apenas para clonar o repositório de materiais. O **site público** será espelhado
+pelo WinHTTrack, com interface gráfica, e a visualização local da **cópia** será
+feita pelo VS Code com **Go Live**, sem instalar Python.
 
 ---
 
@@ -83,24 +88,59 @@ visualização local será feita pelo VS Code com **Go Live**, sem instalar Pyth
 3. No VS Code, abra **Extensões** (`Ctrl+Shift+X`), procure **Live Server**, de
    **Ritwick Dey** (identificador `ritwickdey.LiveServer`), e clique em **Install**.
    O botão para iniciar o servidor se chama **Go Live**.
-4. Instale o **WinHTTrack**, a versão do HTTrack com interface gráfica para
-   Windows, pelo site oficial [httrack.com](https://www.httrack.com).
+4. Prepare o **WinHTTrack**, a versão do HTTrack com interface gráfica para
+   Windows, **sem precisar de privilégios de administrador**:
+   - Abra a [página oficial de downloads](https://www.httrack.com/page/2/en/index.html)
+     e escolha a opção **without installer (eg: USB key)**, em formato **ZIP**.
+     **Não baixe o instalador `.exe`.**
+   - Escolha o pacote conforme o **Tipo de sistema** mostrado em
+     **Configurações → Sistema → Sobre**: **64-bit** para processador x64,
+     **32-bit** para Windows de 32 bits ou **ARM64** para Windows em ARM.
+     Os pacotes sem instalador são identificados por `noinst` no nome
+     (por exemplo, `httrack_x64-noinst-3.50.5.zip` para x64).
+   - No Explorador de Arquivos, clique com o botão direito no ZIP e escolha
+     **Extrair Tudo…**. Extraia para uma pasta em que seu usuário possa gravar,
+     como `Documentos\Ferramentas\WinHTTrack`. Não use `C:\Program Files`.
+   - Abra a pasta extraída e execute **`WinHTTrack.exe`** com um duplo clique.
+     Não use **Executar como administrador**. Se desejar, crie um atalho para
+     esse arquivo na Área de Trabalho. Mantenha os demais arquivos do pacote
+     junto dele; não execute de dentro do ZIP.
+
+> ⚠️ **Dependência e máquinas do laboratório:** o ZIP oficial requer o
+> **Microsoft Visual C++ Redistributable 2015–2022** da arquitetura correspondente
+> ao pacote. Ele deve estar disponível na máquina antes da aula; sua instalação
+> pode exigir administrador. Se aparecer erro de DLL ausente (como
+> `VCRUNTIME140.dll` ou `MSVCP140.dll`), avise o professor ou o suporte de TI.
+> Não baixe DLLs avulsas. Se houver pedido de elevação ou bloqueio por política
+> da instituição, cancele e peça orientação; não tente contornar a restrição.
 
 > 💡 Depois de instalar o Git, feche e abra novamente o VS Code e o PowerShell
 > para que reconheçam o comando `git`. Todo o roteiro abaixo usa Windows.
 
 ---
 
-## Passo 2 — Clonar o repositório e abrir o site-alvo com Go Live
+## Passo 2 — Obter os materiais e acessar o site-alvo público
 
-Antes de espelhar, precisamos que o site-alvo esteja "no ar" localmente, para o
-HTTrack ter o que copiar. O **Live Server** fará isso a partir da cópia local do
-repositório.
+Neste laboratório há **dois repositórios com papéis diferentes**:
+
+- [laboratorio-phishing](https://github.com/SegurancaSistemasInternet/laboratorio-phishing):
+  contém este roteiro e a versão marcada para treino. Você o clona com Git.
+- [site-alvo](https://github.com/SegurancaSistemasInternet/site-alvo):
+  contém o portal fictício publicado pelo professor no GitHub Pages.
+  **Não o clone com Git:** o objetivo é copiar o site servido pela URL pública
+  usando o WinHTTrack, como um navegador acessaria o site.
+
+**URL pública prevista do alvo:** https://segurancasistemasinternet.github.io/site-alvo/
+
+> 📌 **Antes da aula:** o professor deve publicar o alvo e confirmar essa URL.
+> Se ela retornar 404 ou o professor informar outro endereço, não prossiga até
+> receber a URL pública correta. O endereço `github.com/.../site-alvo` é o
+> repositório de código, **não** a URL que deve ser usada no WinHTTrack.
 
 1. Abra o **PowerShell** na pasta em que deseja guardar o laboratório (pelo
    Explorador de Arquivos, clique com o botão direito na pasta e escolha
    **Abrir no Terminal**; selecione PowerShell, se necessário).
-2. Clone o repositório:
+2. Clone apenas o repositório de materiais:
 
    ```powershell
    git clone https://github.com/SegurancaSistemasInternet/laboratorio-phishing.git
@@ -108,19 +148,21 @@ repositório.
 
 3. No VS Code, use **File → Open Folder** (**Arquivo → Abrir Pasta**) e selecione
    a pasta **`laboratorio-phishing`** criada pela clonagem.
-4. No Explorador do VS Code, abra **`site-alvo\index.html`** e clique em
-   **Go Live** na barra de status. Se o navegador abrir a listagem da raiz,
-   clique em **site-alvo** e depois em **index.html**.
-5. Confira se aparece a tela de login do *Portal Acadêmico Fictícia S.A.*.
-   O endereço padrão é **`http://127.0.0.1:5500/site-alvo/index.html`**.
-   Anote a URL exibida: se a porta `5500` estiver ocupada, a extensão pode usar
-   outra. **Use sempre a porta efetiva nos próximos passos.**
-6. Deixe o VS Code aberto e o Live Server ativo enquanto o WinHTTrack copia
-   o alvo. Não é necessário manter um terminal com um servidor Python.
+4. No **navegador**, abra a URL pública do alvo informada acima e confira se
+   aparece a tela de login do *Portal Acadêmico Fictícia S.A.* e a página **Sobre**.
+   Use apenas dados fictícios; o alvo não autentica nem coleta credenciais.
+5. Anote a **URL base completa**, terminando em `/`, e faça uma captura da página
+   para comparação posterior. Se houver redirecionamento, confirme o endereço
+   final com o professor antes de usá-lo no WinHTTrack.
+6. Mantenha o acesso à internet durante o espelhamento. **Não inicie Go Live
+   para servir o alvo**: ele já está hospedado publicamente no GitHub Pages.
+   O Go Live será usado somente para visualizar sua cópia nos próximos passos.
 
 > 🔎 **Observe o alvo com calma.** Esta é a página "legítima" do nosso cenário.
-> Repare no endereço (`127.0.0.1`, a própria máquina), na porta, no caminho
-> `site-alvo/` e no uso de HTTP, sem HTTPS. Daqui a pouco vamos comparar com a cópia.
+> Repare no host (`segurancasistemasinternet.github.io`), no caminho
+> `/site-alvo/` e no **HTTPS**. Daqui a pouco vamos comparar com a cópia.
+> Ser público não torna o alvo uma instituição real nem autoriza copiar outros
+> sites: o escopo continua sendo apenas o portal fictício indicado pelo professor.
 
 ---
 
@@ -130,17 +172,28 @@ Agora o passo central: criar a **versão estática** (o espelho).
 
 ### No WinHTTrack (com janelas)
 
-1. Abra o WinHTTrack e clique em **Next**.
+1. Na pasta extraída no Passo 1, abra **`WinHTTrack.exe`** (ou seu atalho)
+   e clique em **Next**.
 2. **Project name:** `espelho-portal`. Escolha uma pasta de destino **fora da
-   pasta do repositório clonado**, para separar o alvo da cópia. **Next**.
+   pasta do repositório clonado**, para separar o alvo da cópia, e em que seu
+   usuário possa gravar (por exemplo, `Documentos\Espelhos`). **Next**.
 3. **Action:** deixe em *Download web site(s)*.
-4. Em **Web Addresses (URL):** digite `http://127.0.0.1:5500/site-alvo/`,
-   ajustando a porta para a que apareceu no Passo 2.
-5. Clique em **Set options** → aba **Scan Rules**. Adicione
-   `-http://127.0.0.1:5500/*` e, depois,
-   `+http://127.0.0.1:5500/site-alvo/*` (ajuste a porta nas duas regras).
-   Assim, a cópia fica restrita ao alvo fictício, sem incluir outras pastas
-   servidas pelo VS Code. Na aba **Limits**, os padrões bastam para nosso site
+4. Em **Web Addresses (URL):** digite a **URL pública base** confirmada no Passo 2:
+   `https://segurancasistemasinternet.github.io/site-alvo/`.
+   Não use a URL do repositório no GitHub nem um endereço `localhost`.
+5. Clique em **Set options** → aba **Scan Rules**. Substitua as regras existentes
+   por estas duas, **nesta ordem**:
+
+   ```text
+   -*
+   +https://segurancasistemasinternet.github.io/site-alvo/*
+   ```
+
+   A primeira exclui todas as URLs; a segunda permite somente o alvo e seus
+   arquivos. Assim, a cópia não segue links para outros projetos do mesmo host
+   nem para sites externos. Se o professor mudar a URL base, ajuste também a
+   segunda regra, preservando a `/` antes de `*`. Não amplie a permissão para
+   todo o `github.io`. Na aba **Limits**, os padrões bastam para nosso site
    pequeno. **OK**.
 6. **Next** → **Finish**. O HTTrack vai rodar e baixar os arquivos.
 
@@ -150,16 +203,17 @@ Preste atenção nas mensagens: o HTTrack baixa `index.html`, depois descobre o 
 para `sobre.html` e o segue, depois pega `css/estilo.css`. **É a aranha seguindo
 os links** — exatamente como um atacante captura as páginas de um site.
 
-Ao terminar, pare o servidor do alvo clicando em **Port: 5500** (ou na porta
-efetiva) na barra de status do VS Code. Use **Arquivo → Abrir Pasta** para abrir a
-pasta `espelho-portal` gerada pelo WinHTTrack. Abra o `index.html` dessa pasta e
+Ao terminar, use **Arquivo → Abrir Pasta** no VS Code para abrir a pasta
+`espelho-portal` gerada pelo WinHTTrack. Abra o `index.html` dessa pasta e
 clique em **Go Live**. Se aparecer o índice de projetos do HTTrack, clique no
 projeto para chegar à cópia do portal.
 
-> 🧪 **Experimento rápido:** o servidor do alvo foi desligado, mas a cópia continua
-> funcionando, agora servida pelo Go Live a partir da pasta do espelho. Ela não
-> depende mais dos arquivos do repositório original. Não confunda o servidor
-> usado para visualizar a cópia com o servidor do alvo.
+> 🧪 **Experimento rápido:** confira que a cópia agora abre em
+> `http://127.0.0.1:5500/` (ou na porta escolhida pelo Go Live), e não no endereço
+> público original. Se permitido na máquina, desconecte temporariamente a
+> internet e recarregue **a cópia local**: confira se as páginas e o CSS baixados
+> continuam funcionando. Reconecte antes de publicar. O alvo público permanece
+> no ar; você não precisa desligá-lo nem ter acesso ao servidor dele.
 
 ---
 
@@ -233,13 +287,17 @@ Abra a sua página publicada e responda, usando o
 [checklist de defesa](docs/checklist-analise-defensiva.md):
 
 1. **Olhe a URL.** Em que ela difere da do site "oficial"
-   (`http://127.0.0.1:5500/site-alvo/index.html`, ou a URL anotada no Passo 2)?
-   Um atacante contaria com você não reparar nisso.
-2. **O cadeado te enganou?** Ele está lá, verde e bonito. O que ele realmente
-   garante?
+   (`https://segurancasistemasinternet.github.io/site-alvo/`, ou a URL confirmada
+   no Passo 2)? Compare o host e o caminho completos; duas páginas podem estar
+   no GitHub Pages sem pertencer ao mesmo responsável.
+2. **O cadeado te enganou?** Tanto o alvo quanto a cópia publicada usam HTTPS.
+   O que ele realmente garante? Por que isso não distingue a página original
+   da cópia?
 3. **O que o espelho NÃO conseguiu copiar?** Funções que dependem do servidor
    (um login que de fato valida a senha, por exemplo) não existem na cópia. Que
-   pistas isso deixa?
+   pistas isso deixa? **Neste cenário, nem o alvo autentica usuários:** ele
+   também é estático. Portanto, um login sem funcionar não prova, sozinho,
+   que a página é uma cópia.
 4. **Como a isca chegaria?** Discuta em grupo: que e-mail ou mensagem faria alguém
    clicar? Que palavras criam urgência? (Não envie nada a ninguém — só analise.)
 
@@ -258,7 +316,8 @@ Abra a sua página publicada e responda, usando o
 ## 🧹 Encerramento
 
 Terminada a atividade, **despublique** a página: em **Settings → Pages**, desative o
-Pages, ou exclua o repositório de treino. Não há motivo para manter uma página de
+Pages, ou exclua **seu repositório de treino**. Não altere o repositório nem a
+publicação do alvo do professor. Não há motivo para manter uma página de
 phishing (mesmo simulado) no ar depois da aula.
 
 Pare também o Live Server clicando no indicador **Port: …** na barra de status
@@ -271,7 +330,7 @@ do VS Code.
 ```
 laboratorio-phishing/
 ├── README.md                 ← este roteiro
-├── site-alvo/                ← o site FICTÍCIO que você vai espelhar
+├── site-alvo/                ← material-fonte de apoio ao professor (não espelhar localmente)
 │   ├── index.html
 │   ├── sobre.html
 │   └── css/estilo.css
@@ -284,6 +343,12 @@ laboratorio-phishing/
     ├── checklist-analise-defensiva.md
     └── publicar-no-github-pages.md
 ```
+
+O alvo usado pelos alunos é servido pelo **repositório separado**
+[SegurancaSistemasInternet/site-alvo](https://github.com/SegurancaSistemasInternet/site-alvo),
+via GitHub Pages. A pasta [`site-alvo/`](site-alvo/) acima é mantida apenas como
+material-fonte para o professor preparar essa publicação; não é necessário
+abri-la com Go Live nem enviá-la ao repositório de treino do aluno.
 
 ---
 
